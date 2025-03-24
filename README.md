@@ -1,7 +1,7 @@
-# Flask Web App Starter
+# DNSpect
 
-A Flask starter template as per [these docs](https://flask.palletsprojects.com/en/3.0.x/quickstart/#a-minimal-application).
+I was using other online DNS tools enough to warrant making my own.
 
 ## Getting Started
 
-Previews should run automatically when starting a workspace.
+Enter in a website and see the records.
