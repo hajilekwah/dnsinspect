@@ -7,6 +7,7 @@
   packages = [ 
     pkgs.python3
     pkgs.python311Packages.pip
+    pkgs.python311Packages.dnspython
      ];
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" id="dark-theme" href="{{ url_for('static', filename='dark.css') }}" disabled>
+  <title>DNS Dig</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light text-center">
+    <div class="container mt-5">
+      <h1 class="mb-4">🔎 Dig with dnspython</h1>
+  
+      <form method="POST" action="/dig" class="mb-4">
+        <input type="text" name="domain" class="form-control" placeholder="Enter a domain (e.g. example.com)" value="{{ domain }}" required>
+        <select name="type" class="form-select mt-2">
+          <option value="A" {% if record_type == 'A' %}selected{% endif %}>A</option>
+          <option value="AAAA" {% if record_type == 'AAAA' %}selected{% endif %}>AAAA</option>
+          <option value="MX" {% if record_type == 'MX' %}selected{% endif %}>MX</option>
+          <option value="TXT" {% if record_type == 'TXT' %}selected{% endif %}>TXT</option>
+          <option value="NS" {% if record_type == 'NS' %}selected{% endif %}>NS</option>
+          <option value="CAA" {% if record_type == 'CAA' %}selected{% endif %}>CAA</option>
+          <option value="SOA" {% if record_type == 'SOA' %}selected{% endif %}>SOA</option>
+          <option value="ALL" {% if record_type == 'ALL' %}selected{% endif %}>ALL</option>
+        </select>
+        <button type="submit" class="btn btn-primary mt-3">Run Dig</button>
+      </form>
+  
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+  
+      {% if result %}
+        <div class="alert alert-success text-start mx-auto" style="max-width: 600px;">
+          <h5>DNS Results:</h5>
+          {% for rtype, records in result.items() %}
+            <h6 class="mt-3">{{ rtype }} Records:</h6>
+            <ul class="list-group">
+              {% for record in records %}
+                <li class="list-group-item">{{ record }}</li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </body>  
+</html>
